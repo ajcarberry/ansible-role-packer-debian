@@ -1,13 +1,14 @@
 ---
 
-- name: Ensure apt cache is updated.
-  apt: update_cache=yes cache_valid_time=3600
-
 - name: Update OS
-  command: apt-get upgrade -y -qq
+  apt:
+    upgrade: yes
+    update_cache: yes
+    cache_valid_time: 86400
 
-- name: Ensure correct kernel headers are installed.
-  shell: "apt-get -y install linux-headers-$(uname -r)"
+- name: Ensure correct kernel headers are installed
+  apt:
+    pkg: "linux-headers-{{ ansible_kernel }}"
 
 # SSH daemon configuration.
 - name: Configure SSH daemon.
