@@ -28,12 +28,12 @@
 
 - name: update timezone
   command: dpkg-reconfigure --frontend noninteractive tzdata
-  when: new_timezone|success
+  when: new_timezone is success
 
 # Cleanup tasks.
 - name: Remove unneeded packages.
   apt:
-    name:
+    pkg:
       - ppp
       - pppconfig
       - pppoeconf
