@@ -4,7 +4,7 @@
 Vagrant.configure(2) do |config|
   config.vm.box = "ajcarberry/ubuntu1804"
 
-  config.vm.define :packer-debian do |t|
+  config.vm.define :packerDebian do |t|
   end
 
   # Create a private network, which allows host-only access to the machine
@@ -15,7 +15,7 @@ Vagrant.configure(2) do |config|
     # Display the VirtualBox GUI when booting the machine
     vb.gui = true
     # Set the name of the vm created in VB
-    vb.name = "packer-debian"
+    vb.name = "packerDebian"
     # Customize the amount of memory and cpu on the VM:
     vb.memory = 2048
     vb.cpus = 1
