@@ -2,13 +2,15 @@
 
 - name: Update OS
   apt:
-    upgrade: yes
-    update_cache: yes
+    upgrade: "yes"
+    update_cache: "yes"
     cache_valid_time: 86400
 
 - name: Ensure correct kernel headers are installed
   apt:
-    pkg: "linux-headers-{{ ansible_kernel }}"
+    name:
+      - "linux-headers-{{ ansible_kernel }}"
+    state: present
 
 # SSH daemon configuration.
 - name: Configure SSH daemon.
@@ -24,7 +26,13 @@
       line: 'GSSAPIAuthentication no'
 
 - name: Set Time Zone
-  copy: content='{{ time_zone }}\n' dest=/etc/timezone owner=root group=root mode=0644 backup=yes
+  copy:
+    content: "{{ time_zone }}\n"
+    dest: "/etc/timezone"
+    owner: root
+    group: root
+    mode: 0644
+    backup: "yes"
   register: new_timezone
 
 - name: update timezone
@@ -34,7 +42,7 @@
 # Cleanup tasks.
 - name: Remove unneeded packages.
   apt:
-    pkg:
+    name:
       - ppp
       - pppconfig
       - pppoeconf
@@ -48,14 +56,10 @@
       - libx11-6
       - libxext6
       - linux-source
+      - '*-dev'
     state: absent
 
-- name: Remove unneeded packages (by regex).
-  shell: "apt-get -y remove '.*-dev$'"
-
-- name: Clean up apt.
-  command: "{{ item }}"
-  changed_when: false
-  with_items:
-    - apt-get -y autoremove
-    - apt-get -y clean
+- name: Clean up apt
+  apt:
+    autoremove: "yes"
+    autoclean: "yes"
