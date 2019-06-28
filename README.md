@@ -25,9 +25,9 @@ The `time_zone` variable is used by Ansible to set the time zone of the machine.
 
 None.
 
-## Example Playbook
+## Example Usage
 
-# Configure your `requirements.yml` to download from the correct role location:
+#### Configure your `requirements.yml` to download the role from GitHub:
 
 ```yaml
 ---
@@ -36,16 +36,16 @@ None.
   name: ajcarberry.packer-debian
 ```
 
-# Call the role from your playbook or configure it in your `meta/main.yml` file:
+#### Configure it as a dependency it in your `meta/main.yml` file or call it directly from your playbook:
 
-**meta/main.yml**
+**Example - meta/main.yml**
 ```yaml
 ---
 dependencies:
   - { role: ajcarberry.packer-debian, time_zone: ['UTC'] }
 ```
 
-**playbook.yml**
+**Example - playbook.yml**
 ```yaml
 ---
 - hosts: all
