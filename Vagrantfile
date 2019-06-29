@@ -2,7 +2,8 @@
 # vi: set ft=ruby :
 
 Vagrant.configure(2) do |config|
-  config.vm.box = "ajcarberry/ubuntu1804"
+  #config.vm.box = "ajcarberry/ubuntu1804"
+  config.vm.box = "ajcarberry/debian9"
 
   config.vm.define :packerDebian do |t|
   end
