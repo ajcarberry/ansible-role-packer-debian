@@ -1,0 +1,25 @@
+---
+
+# Setup/install tasks.
+- name: Include Ubuntu variables.
+  include_vars: ubuntu.yml
+  when: ansible_distribution == 'Ubuntu'
+
+- name: Include Debian variables.
+  include_vars: debian.yml
+  when: ansible_distribution == 'Debian'
+
+# Configure backports and install virtualBox guest additions
+- name: Enable Backports repository.
+  apt_repository:
+    repo: "{{ backports_repo }}"
+    state: present
+
+- name: Update apt cache.
+  apt:
+    update_cache: true
+    
+- name: Install VirtualBox guest additions.
+  apt:
+    name: virtualbox-guest-additions-iso
+    state: present
